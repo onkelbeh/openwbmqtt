@@ -1,0 +1,17 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "The integration of this openWB is already configured.\n\nPlease use another MQTT Root Topic."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "mqttroot": "MQTT Root Topic",
+                    "chargepoints": "Amount of charging Points of your openWB"
+                },
+                "description": "Setup the OpenWB integration.",
+                "title": "openWB integration in Home Assistant through MQTT"
+            }
+        }
+    }
+}
