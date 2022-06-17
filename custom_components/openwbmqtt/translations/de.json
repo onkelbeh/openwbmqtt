@@ -1,7 +1,7 @@
 {
     "config": {
         "abort": {
-            "already_configured": "Die Integration dieser openWB ist bereits konfiguriert. Bitte gib ein anderes MQTT-Wurzeltopic ein."
+            "already_configured": "Die Integration dieser openWB ist bereits konfiguriert.\n\nBitte gib ein anderes MQTT-Wurzeltopic ein."
         },
         "step": {
             "user": {
