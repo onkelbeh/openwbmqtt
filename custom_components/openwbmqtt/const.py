@@ -102,6 +102,8 @@ class openWBNumberEntityDescription(NumberEntityDescription):
 
 
 # List of global sensors that are relevant to the entire wallbox
+
+# topic: system
 SENSORS_GLOBAL = [
     openwbSensorEntityDescription(
         key="system/IpAddress",
@@ -119,6 +121,7 @@ SENSORS_GLOBAL = [
         entity_category=EntityCategory.DIAGNOSTIC,
         icon="mdi:folder-clock",
     ),
+    # topic: global
     openwbSensorEntityDescription(
         key="global/WHouseConsumption",
         name="Hausverbrauch",
@@ -128,6 +131,7 @@ SENSORS_GLOBAL = [
         entity_registry_enabled_default=False,
         icon="mdi:home-lightning-bolt-outline",
     ),
+    # topic: pv
     openwbSensorEntityDescription(
         key="pv/W",
         name="PV-Leistung",
@@ -138,6 +142,17 @@ SENSORS_GLOBAL = [
         value_fn=lambda x: round(float(x) * (-1.0)),
         icon="mdi:solar-power-variant-outline",
     ),
+    openwbSensorEntityDescription(
+        key="pv/WhCounter",
+        name="PV-Gesamtertrag",
+        device_class=SensorDeviceClass.ENERGY,
+        native_unit_of_measurement=ENERGY_KILO_WATT_HOUR,
+        state_class=SensorStateClass.TOTAL_INCREASING,
+        entity_registry_enabled_default=False,
+        value_fn=lambda x: round(float(x) / 1000.0, 1),
+        icon="mdi:counter",
+    ),
+    # topic: evu
     openwbSensorEntityDescription(
         key="evu/WhImported",
         name="Netzbezug",
@@ -158,17 +173,7 @@ SENSORS_GLOBAL = [
         value_fn=lambda x: round(float(x) / 1000.0, 1),
         icon="mdi:transmission-tower-export"
     ),
-    openwbSensorEntityDescription(
-        key="pv/WhCounter",
-        name="PV-Gesamtertrag",
-        device_class=SensorDeviceClass.ENERGY,
-        native_unit_of_measurement=ENERGY_KILO_WATT_HOUR,
-        state_class=SensorStateClass.TOTAL_INCREASING,
-        entity_registry_enabled_default=False,
-        value_fn=lambda x: round(float(x) / 1000.0, 1),
-        icon="mdi:counter",
-    ),
-    # Housebattery
+    # topic: housebattery
     openwbSensorEntityDescription(
         key="housebattery/WhImported",
         name="Batteriebezug",
@@ -210,6 +215,7 @@ SENSORS_GLOBAL = [
     ),
 ]
 
+# sensors per chargepoint (cp)
 SENSORS_PER_LP = [
     openwbSensorEntityDescription(
         key="W",
@@ -217,14 +223,6 @@ SENSORS_PER_LP = [
         device_class=SensorDeviceClass.POWER,
         native_unit_of_measurement=POWER_WATT,
         state_class=SensorStateClass.MEASUREMENT,
-    ),
-    openwbSensorEntityDescription(
-        key="energyConsumptionPer100km",
-        name="Durchschnittsverbrauch (pro 100 km)",
-        device_class=SensorDeviceClass.ENERGY,
-        native_unit_of_measurement=ENERGY_KILO_WATT_HOUR,
-        entity_category=EntityCategory.DIAGNOSTIC,
-        entity_registry_enabled_default=False,
     ),
     openwbSensorEntityDescription(
         key="AConfigured",
@@ -300,42 +298,6 @@ SENSORS_PER_LP = [
         icon="mdi:alarm",
     ),
     openwbSensorEntityDescription(
-        key="strChargePointName",
-        name="Ladepunktsbezeichnung",
-        device_class=None,
-        native_unit_of_measurement=None,
-        icon="mdi:form-textbox",
-        entity_category=EntityCategory.DIAGNOSTIC,
-        entity_registry_enabled_default=False,
-    ),
-    openwbSensorEntityDescription(
-        key="PfPhase1",
-        name="Leistungsfaktor (Phase 1)",
-        device_class=SensorDeviceClass.BATTERY,
-        native_unit_of_measurement=None,
-        state_class=SensorStateClass.MEASUREMENT,
-        entity_category=EntityCategory.DIAGNOSTIC,
-        entity_registry_enabled_default=False,
-    ),
-    openwbSensorEntityDescription(
-        key="PfPhase2",
-        name="Leistungsfaktor (Phase 2)",
-        device_class=SensorDeviceClass.BATTERY,
-        native_unit_of_measurement=None,
-        state_class=SensorStateClass.MEASUREMENT,
-        entity_category=EntityCategory.DIAGNOSTIC,
-        entity_registry_enabled_default=False,
-    ),
-    openwbSensorEntityDescription(
-        key="PfPhase3",
-        name="Leistungsfaktor (Phase 3)",
-        device_class=SensorDeviceClass.BATTERY,
-        native_unit_of_measurement=None,
-        state_class=SensorStateClass.MEASUREMENT,
-        entity_category=EntityCategory.DIAGNOSTIC,
-        entity_registry_enabled_default=False,
-    ),
-    openwbSensorEntityDescription(
         key="VPhase1",
         name="Spannung (Phase 1)",
         device_class=SensorDeviceClass.VOLTAGE,
@@ -380,6 +342,51 @@ SENSORS_PER_LP = [
         native_unit_of_measurement=ELECTRIC_CURRENT_AMPERE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
+            # entity category: DIAGNOSTIC
+    openwbSensorEntityDescription(
+        key="energyConsumptionPer100km",
+        name="Durchschnittsverbrauch (pro 100 km)",
+        device_class=SensorDeviceClass.ENERGY,
+        native_unit_of_measurement=ENERGY_KILO_WATT_HOUR,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        entity_registry_enabled_default=False,
+    ),
+    openwbSensorEntityDescription(
+        key="strChargePointName",
+        name="Ladepunktsbezeichnung",
+        device_class=None,
+        native_unit_of_measurement=None,
+        icon="mdi:form-textbox",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        entity_registry_enabled_default=False,
+    ),
+    openwbSensorEntityDescription(
+        key="PfPhase1",
+        name="Leistungsfaktor (Phase 1)",
+        device_class=SensorDeviceClass.BATTERY,
+        native_unit_of_measurement=None,
+        state_class=SensorStateClass.MEASUREMENT,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        entity_registry_enabled_default=False,
+    ),
+    openwbSensorEntityDescription(
+        key="PfPhase2",
+        name="Leistungsfaktor (Phase 2)",
+        device_class=SensorDeviceClass.BATTERY,
+        native_unit_of_measurement=None,
+        state_class=SensorStateClass.MEASUREMENT,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        entity_registry_enabled_default=False,
+    ),
+    openwbSensorEntityDescription(
+        key="PfPhase3",
+        name="Leistungsfaktor (Phase 3)",
+        device_class=SensorDeviceClass.BATTERY,
+        native_unit_of_measurement=None,
+        state_class=SensorStateClass.MEASUREMENT,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        entity_registry_enabled_default=False,
+    ),
 ]
 
 BINARY_SENSORS_PER_LP = [
@@ -392,20 +399,6 @@ BINARY_SENSORS_PER_LP = [
         key="ChargePointEnabled",
         name="Ladepunkt aktiv",
         device_class=BinarySensorDeviceClass.POWER,
-    ),
-    openwbBinarySensorEntityDescription(
-        key="boolDirectModeChargekWh",
-        name="Begrenzung Energie (Modus Sofortladen)",
-        device_class=None,
-        entity_category=EntityCategory.DIAGNOSTIC,
-        icon="mdi:battery-charging",
-    ),
-    openwbBinarySensorEntityDescription(
-        key="boolDirectChargeModeSoc",
-        name="Begrenzung SoC (Modus Sofortladen)",
-        device_class=None,
-        entity_category=EntityCategory.DIAGNOSTIC,
-        icon="mdi:battery-unknown",
     ),
     openwbBinarySensorEntityDescription(
         key="boolChargeAtNight",
@@ -424,6 +417,21 @@ BINARY_SENSORS_PER_LP = [
         key="boolChargeStat",
         name="Autoladestatus",
         device_class=BinarySensorDeviceClass.BATTERY_CHARGING,
+    ),
+        # EntityCategory: DIAGNOSTIC
+    openwbBinarySensorEntityDescription(
+        key="boolDirectModeChargekWh",
+        name="Begrenzung Energie (Modus Sofortladen)",
+        device_class=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        icon="mdi:battery-charging",
+    ),
+    openwbBinarySensorEntityDescription(
+        key="boolDirectChargeModeSoc",
+        name="Begrenzung SoC (Modus Sofortladen)",
+        device_class=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        icon="mdi:battery-unknown",
     ),
 ]
 
