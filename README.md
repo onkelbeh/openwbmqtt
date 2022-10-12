@@ -1,6 +1,7 @@
 # openwbmqtt
 
-THIS is an fork based on the work of https://github.com/a529987659852/openwbmqtt! 
+THIS is an fork based on the work of https://github.com/a529987659852/openwbmqtt!
+PLEASE USE THE ORIGINAL COMPONENT (which you will also find in HACS)
 
 Note: I provide this custom integration without any warranty. It lies in the responsability of each user to validate the functionality with his/her own openWB!
 
