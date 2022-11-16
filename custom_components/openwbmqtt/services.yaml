@@ -4,8 +4,8 @@ enable_disable_cp:
     mqtt_prefix:
       name: Prefix for MQTT topic
       description: Prefix on the MQTT server that addresses the respective wallbox
-      default: 'openWB/openWB'
-      example: 'openWB/openWB'
+      default: 'openWB'
+      example: 'openWB'
       required: true
       selector:
         text:
@@ -34,8 +34,8 @@ change_global_charge_mode:
     mqtt_prefix:
       name: Prefix for MQTT topic
       description: respective Prefix on the MQTT server that addresses the respective wallbox
-      default: 'openWB/openWB'
-      example: 'openWB/openWB'
+      default: 'openWB'
+      example: 'openWB'
       required: true    
       selector:
         text:
@@ -59,8 +59,8 @@ change_charge_limitation_per_cp:
     mqtt_prefix:
       name: Prefix for MQTT topic
       description: respective Prefix on the MQTT server that addresses the respective wallbox
-      default: 'openWB/openWB'
-      example: 'openWB/openWB'
+      default: 'openWB'
+      example: 'openWB'
       required: true
       selector:
         text:
@@ -112,8 +112,8 @@ change_charge_current_per_cp:
     mqtt_prefix:
       name: Prefix for MQTT topic
       description: respective Prefix on the MQTT server that addresses the respective wallbox
-      default: 'openWB/openWB'
-      example: 'openWB/openWB'
+      default: 'openWB'
+      example: 'openWB'
       required: true
       selector:
         text:
