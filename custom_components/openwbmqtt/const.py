@@ -88,6 +88,7 @@ class openwbSwitchEntityDescription(SwitchEntityDescription):
 
     mqttTopicCommand: str | None = None
     mqttTopicCurrentValue: str | None = None
+    mqttTopicChargeMode: str | None = None
 
 @dataclass
 class openWBNumberEntityDescription(NumberEntityDescription):
@@ -698,6 +699,15 @@ SWITCHES_PER_LP = [
         mqttTopicCommand="ChargePointEnabled",
         mqttTopicCurrentValue="ChargePointEnabled",
         device_class=SwitchDeviceClass.SWITCH,
+    ),
+        openwbSwitchEntityDescription(
+        key="PriceBasedCharging",
+        entity_category=EntityCategory.CONFIG,
+        name="Preisbasiertes Laden (Modus Sofortladen)",
+        device_class=SwitchDeviceClass.SWITCH,
+        mqttTopicCommand="etBasedCharging",
+        mqttTopicCurrentValue="etBasedCharging",
+        mqttTopicChargeMode="sofort",
     ),
 ]
 
