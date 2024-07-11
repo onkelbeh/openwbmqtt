@@ -1,3 +1,7 @@
+**Information**  
+This project has been forked from: https://github.com/a529987659852/openwbmqtt  
+if you want to use this component, you need to uninstall the original one first.  
+
 ### If you're on openWB2, look here --> https://github.com/a529987659852/openwb2mqtt
 # openwbmqtt
 
